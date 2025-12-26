@@ -1,2 +1,4 @@
-# France_Croissants
-one page html+js site for selling croissants
+# France Croissants
+Простой и стильный онлайн-магазин круассанов.
+- Стек: HTML5, CSS3, JavaScript.
+- Особенности: Адаптивная сетка, корзина со свайпом, модальные окна.

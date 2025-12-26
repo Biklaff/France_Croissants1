@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://Biklaff.github.io/France_croissants/sitemap.xml

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title> France Croissants | Свежая французская выпечка</title>
+
+        <meta name="description" content="Заказывайте свежайшие крафтовые круассаны с доставкой. Классические, шоколадные и фруктовые вкусы в Gourmet Croissants.">
+        <meta name="keywords" content="круассаны, выпечка, доставка круассанов, французская кухня, пекарня">
+        <meta name="author" content="France Croissants">
+
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="France Croissants — Магия вкуса в каждом кусочке">
+        <meta property="og:description" content="Лучшая выпечка в городе. Посмотрите наше меню и закажите онлайн!">
+        <meta property="og:image" content="assets/og-image.jpg"> <meta property="og:site_name" content="France Croissants">
+
+        <link rel="icon" href="assets/favicon.png" type="image/x-icon">
+
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header__logo" onclick="uiActionScrollToTop()">🥐 Croissant</div>
+    <div class="header__cart-btn" onclick="uiActionToggleCart()">
+        🛒 <span id="cart-counter">0</span>
+    </div>
+</header>
+
+<main id="product-grid" class="grid-container"></main>
+
+<div class="overlay" id="modal-product" onclick="uiActionCloseModal(event)">
+    <div class="modal-card">
+        <div class="slider" onclick="uiActionHandleSliderClick(event)">
+            <div id="slider-dots" class="slider__dots"></div>
+            <img id="modal-image" class="slider__img" draggable="false">
+        </div>
+        <div class="modal-card__content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <div id="modal-price" class="modal-card__price"></div>
+            <button class="btn-primary" onclick="cartLogicAdd()">Добавить в корзину</button>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="modal-cart" onclick="uiActionCloseCart(event)">
+    <div class="cart-sidebar">
+        <div class="cart-sidebar__header">
+            <h2>Корзина</h2>
+        </div>
+        <div id="cart-items-list" class="cart-sidebar__items"></div>
+        <div class="cart-sidebar__footer">
+            <input id="customer-phone" class="input-field" type="tel" placeholder="+380 (__) ___-__-__">
+            <button class="btn-primary" onclick="orderLogicSubmit()">Заказать сейчас</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
