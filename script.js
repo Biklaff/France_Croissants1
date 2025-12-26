@@ -39,8 +39,8 @@ const PRODUCTS = [
     }];
 
 const TG_CONFIG = {
-    TOKEN: '8215207090:AAGyNzvvxkVaM8KpaQH-WuGagEWKZo5mJ6o',
-    CHAT_ID: '1131174601'
+    TOKEN: '',            /*!!!!!!!BOT TOKEN!!!!!!!!*/
+    CHAT_ID: ''          /*!!!!!!!USERID WRITE!!!!!!*/
 };
 
 let cart = JSON.parse(localStorage.getItem('shop_cart')) || [];
