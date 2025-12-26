@@ -1,12 +1,53 @@
+/*configuration*/
+
 const PRODUCTS = [
+    {
+        title: "Золотой Рассвет",
+        price: 60,
+        desc: "Классический вкус.",
+        images: ["assets/images/classic.jpg", "assets/images/chocolate.jpg"]
+    },
+    {
+        title: "Бархатный Шоколад",
+        price: 85,
+        desc: "Бельгийский шоколад.",
+        images: ["assets/images/chocolate.jpg", "assets/images/classic.jpg"]
+    },
+    {
+        title: "Миндальная Симфония",
+        price: 95,
+        desc: "Миндальный крем.",
+        images: ["assets/images/classic.jpg", "assets/images/chocolate.jpg"]
+    },
+    {
+        title: "Фисташковый Пик",
+        price: 110,
+        desc: "Иранская фисташка.",
+        images: ["assets/images/chocolate.jpg", "assets/images/chocolate.jpg", "assets/images/chocolate.jpg"]
+    },
+    {
+        title: "Лосось & Крем-сыр",
+        price: 120,
+        desc: "Сытный завтрак.",
+        images: ["assets/images/classic.jpg", "assets/images/chocolate.jpg", "assets/images/chocolate.jpg"]
+    },
+    {
+        title: "Малиновый Бриз",
+        price: 80,
+        desc: "Ягодный конфитюр.",
+        images: ["assets/images/chocolate.jpg"]
+    }];
 
 const TG_CONFIG = {
+    TOKEN: '8215207090:AAGyNzvvxkVaM8KpaQH-WuGagEWKZo5mJ6o',
+    CHAT_ID: '1131174601'
 };
 
 let cart = JSON.parse(localStorage.getItem('shop_cart')) || [];
 let activeProd = null;
 let activeImgIdx = 0;
 
+/*initialization*/
 window.onload = () => {
     renderProductGrid();
     updateCartCounter();
@@ -23,6 +64,7 @@ function renderProductGrid() {
     `).join('');
 }
 
+/*modal window*/
 function uiActionOpenProduct(idx) {
     activeProd = PRODUCTS[idx];
     activeImgIdx = 0;
@@ -50,8 +92,9 @@ function uiActionHandleSliderClick(e) {
     syncModal();
 }
 
+/* cart */
 function cartLogicAdd() {
-    cart.push({ ...activeProd, cartId: Date.now() });
+    cart.push({...activeProd, cartId: Date.now()});
     updateCartCounter();
     uiActionCloseModal({target: {id: 'modal-product'}});
     uiActionToggleCart();
@@ -83,7 +126,13 @@ function renderCartList() {
     `).join('') : '<p style="text-align:center; padding:30px; color:#999">Пусто</p>';
 }
 
+/*swipes*/
 let startX = 0;
+
+function handleSwipeStart(e) {
+    startX = e.touches[0].clientX;
+}
+
 function handleSwipeMove(e) {
     const row = e.currentTarget;
     const diff = startX - e.touches[0].clientX;
@@ -97,12 +146,13 @@ function cartLogicRemove(idx) {
     renderCartList();
 }
 
+/* order */
 async function orderLogicSubmit() {
     const phone = document.getElementById('customer-phone').value;
     if (!cart.length || !phone) return alert("Введите данные");
     localStorage.setItem('user_phone', phone);
 
-    const text = `📦 <b>Новый заказ!</b>\n📱 Тел: ${phone}\n💰 Итого: ${cart.reduce((s,i)=>s+i.price,0)} грн`;
+    const text = `📦 <b>Новый заказ!</b>\n📱 Тел: ${phone}\n💰 Итого: ${cart.reduce((s, i) => s + i.price, 0)} грн`;
 
     await fetch(`https://api.telegram.org/bot${TG_CONFIG.TOKEN}/sendMessage`, {
         method: 'POST',
@@ -111,4 +161,23 @@ async function orderLogicSubmit() {
     });
 
     alert("Заказ принят!");
+    cart = [];
+    updateCartCounter();
+    uiActionToggleCart();
+}
+
+/* additional */
+function uiActionScrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function uiActionCloseModal(e) {
+    if (e.target.id === 'modal-product') {
+        document.getElementById('modal-product').style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+}
+
+function uiActionCloseCart(e) {
+    if (e.target.id === 'modal-cart') uiActionToggleCart();
 }
