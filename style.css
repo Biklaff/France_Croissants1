@@ -61,6 +61,14 @@ body {
     }
 }
 
+.close-arrow {
+    font-size: 32px;      /* крупная стрелка */
+    cursor: pointer;
+    margin-right: 15px;   /* отступ от текста */
+    user-select: none;    /* чтобы не выделялась при нажатии */
+    padding: 5px;         /* зона нажатия больше */
+}
+
 .header__cart-btn:active {
     transform: scale(0.95);
 }
